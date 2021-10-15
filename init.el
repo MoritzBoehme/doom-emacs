@@ -80,7 +80,11 @@
 
        :checkers
        syntax               ; tasing you for every semicolon you forget
+<<<<<<< HEAD
        spell                ; tasing you for misspelling mispelling
+=======
+       (spell +flyspell +hunspell)    ; tasing you for misspelling mispelling
+>>>>>>> 284cbf5e20781de854743c4786478fd67ecb61fb
        grammar              ; tasing grammar mistake every you make
 
        :tools

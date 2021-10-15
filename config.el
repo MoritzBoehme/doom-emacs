@@ -56,16 +56,22 @@
 ;; Set FiraCode as Font
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14) )
 
-(setq ispell-dictionary "english")
-;; Switch Flyspell Dictionary
-(defun fd-switch-dictionary()
-(interactive)
-(let* ((dic ispell-current-dictionary)
-       (change (if (string= dic "deutsch") "english" "deutsch")))
-   (ispell-change-dictionary change)
-   (message "Dictionary switched from %s to %s" dic change)
-   ))
- (global-set-key (kbd "<f8>")   'fd-switch-dictionary)
+(with-eval-after-load "ispell"
+  (setq ispell-program-name "hunspell")
+  ;; Configure German, Swiss German, and two variants of English.
+  (setq ispell-dictionary "de_DE,en_GB,en_US")
+  ;; ispell-set-spellchecker-params has to be called
+  ;; before ispell-hunspell-add-multi-dic will work
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "de_DE,en_GB,en_US")
+  ;; For saving words to the personal dictionary, don't infer it from
+  ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
+  (setq ispell-personal-dictionary "~/.hunspell_personal"))
+
+;; The personal dictionary file has to exist, otherwise hunspell will
+;; silently not use it.
+(unless (file-exists-p ispell-personal-dictionary)
+  (write-region "" nil ispell-personal-dictionary nil 0))
 
 
 (add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
