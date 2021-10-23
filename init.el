@@ -35,7 +35,7 @@
        hl-todo              ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        ;;indent-guides      ; highlighted indent columns
-       ligatures           ; ligatures and symbols to make your code pretty again
+       ligatures            ; ligatures and symbols to make your code pretty again
        ;;minimap            ; show a map of the code on the side
        modeline             ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash          ; blink cursor line after big motions
@@ -80,11 +80,7 @@
 
        :checkers
        syntax               ; tasing you for every semicolon you forget
-<<<<<<< HEAD
-       spell                ; tasing you for misspelling mispelling
-=======
        (spell +flyspell +hunspell)    ; tasing you for misspelling mispelling
->>>>>>> 284cbf5e20781de854743c4786478fd67ecb61fb
        grammar              ; tasing grammar mistake every you make
 
        :tools
@@ -143,7 +139,7 @@
        ;;javascript         ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia              ; a better, faster MATLAB
        ;;kotlin             ; a better, slicker Java(Script)
-       (latex +cdlatex)                ; writing papers in Emacs has never been so fun
+       (latex +cdlatex)     ; writing papers in Emacs has never been so fun
        ;;lean               ; for folks with too much to prove
        ;;ledger             ; be audit you can be
        ;;lua                ; one-based indices? one-based indices
