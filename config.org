@@ -105,7 +105,7 @@ This determines the style of line numbers in effect. If set to `nil', line numbe
   (ispell-hunspell-add-multi-dic "de_DE,en_GB,en_US")
   ;; For saving words to the personal dictionary, don't infer it from
   ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
-  (setq ispell-personal-dictionary "~/.hunspell_personal"))
+  (setq ispell-personal-dictionary "~/.config/doom/.dictionary.txt"))
 #+END_SRC
 
 The personal dictionary file has to exist, otherwise hunspell will silently not use it.
