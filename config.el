@@ -60,3 +60,8 @@
   (write-region "" nil ispell-personal-dictionary nil 0))
 
 (map! :n "g s s" 'evil-avy-goto-char-timer)
+
+(map! :leader
+      :desc "Zen mode (fullscreen)"
+      "t z" '+zen/toggle-fullscreen
+      "t Z" nil)

@@ -11,7 +11,9 @@
     - [[#org-roam-ui][Org Roam UI]]
 - [[#line-numbering][Line Numbering]]
 - [[#ispell][Ispell]]
-- [[#avy][Avy]]
+- [[#key-mapping][Key Mapping]]
+  - [[#avy][Avy]]
+  - [[#zen-mode][Zen mode]]
 
 * User Information
 Some functionality uses this to identify you, e.g. GPG configuration, email clients, file templates and snippets.
@@ -116,7 +118,15 @@ The personal dictionary file has to exist, otherwise hunspell will silently not 
   (write-region "" nil ispell-personal-dictionary nil 0))
 #+END_SRC
 
-* Avy
+* Key Mapping
+** Avy
 #+BEGIN_SRC emacs-lisp
 (map! :n "g s s" 'evil-avy-goto-char-timer)
+#+END_SRC
+** Zen mode
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      :desc "Zen mode (fullscreen)"
+      "t z" '+zen/toggle-fullscreen
+      "t Z" nil)
 #+END_SRC
