@@ -1,12 +1,14 @@
 #+TITLE: Emacs Config
 #+STARTUP: showeverything
 
-* Table of contents :toc:
+* Table of contents :TOC_3:
 - [[#user-information][User Information]]
 - [[#fonts][Fonts]]
 - [[#theme][Theme]]
 - [[#org][Org]]
   - [[#org-roam][Org Roam]]
+    - [[#roam-capture-templates][Roam capture templates]]
+    - [[#org-roam-ui][Org Roam UI]]
 - [[#line-numbering][Line Numbering]]
 - [[#ispell][Ispell]]
 - [[#avy][Avy]]
