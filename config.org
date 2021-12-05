@@ -1,12 +1,53 @@
+#+TITLE: Emacs Config
+#+STARTUP: showeverything
+
+* Table of contents :toc:
+- [[#user-information][User Information]]
+- [[#fonts][Fonts]]
+- [[#theme][Theme]]
+- [[#org][Org]]
+  - [[#org-roam][Org Roam]]
+- [[#line-numbering][Line Numbering]]
+- [[#ispell][Ispell]]
+- [[#avy][Avy]]
+
+* User Information
+Some functionality uses this to identify you, e.g. GPG configuration, email clients, file templates and snippets.
+#+BEGIN_SRC emacs-lisp
 (setq user-full-name "Moritz Böhme"
       user-mail-address "mail@moritzboeh.me")
+#+END_SRC
 
+* Fonts
+Doom exposes five (optional) variables for controlling fonts in Doom. Here are the three important ones:
++ `doom-font'
++ `doom-variable-pitch-font'
++ `doom-big-font' -- used for `doom-big-font-mode'; use this for presentations or streaming.
+They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font string. You generally only need these two:
+#+BEGIN_EXAMPLE emacs-lisp
+(setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+#+END_EXAMPLE
+
+#+BEGIN_SRC emacs-lisp
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14) )
+#+END_SRC
 
+* Theme
+There are two ways to load a theme. Both assume the theme is installed and available. You can either set `doom-theme' or manually load a theme with the `load-theme' function. This is the default:
+#+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-dracula)
+#+END_SRC
 
+* Org
+Store org files under Documents directory.
+#+BEGIN_SRC emacs-lisp
 (setq org-directory "~/Documents/org")
+#+END_SRC
 
+** Org Roam
+*** Roam capture templates
+#+BEGIN_SRC emacs-lisp
 (setq org-roam-directory "~/Documents/org-roam")
 (after! org-roam
   :custom
@@ -31,7 +72,10 @@
           )
         )
   )
+#+END_SRC
 
+*** Org Roam UI
+#+BEGIN_SRC emacs-lisp
 (use-package! websocket
     :after org-roam)
 
@@ -42,9 +86,16 @@
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
+#+END_SRC
 
+* Line Numbering
+This determines the style of line numbers in effect. If set to `nil', line numbers are disabled. For relative line numbers, set this to `relative'.
+#+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type 'relative)
+#+END_SRC
 
+* Ispell
+#+BEGIN_SRC emacs-lisp
 (with-eval-after-load "ispell"
   (setq ispell-program-name "hunspell")
   (setq ispell-dictionary "de_DE,en_GB,en_US")
@@ -55,8 +106,15 @@
   ;; For saving words to the personal dictionary, don't infer it from
   ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
   (setq ispell-personal-dictionary "~/.hunspell_personal"))
+#+END_SRC
 
+The personal dictionary file has to exist, otherwise hunspell will silently not use it.
+#+BEGIN_SRC emacs-lisp
 (unless (file-exists-p ispell-personal-dictionary)
   (write-region "" nil ispell-personal-dictionary nil 0))
+#+END_SRC
 
+* Avy
+#+BEGIN_SRC emacs-lisp
 (map! :n "g s s" 'evil-avy-goto-char-timer)
+#+END_SRC
