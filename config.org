@@ -138,3 +138,9 @@ The personal dictionary file has to exist, otherwise hunspell will silently not 
   )
 #+END_SRC
 
+* LSP
+** Rust
+#+BEGIN_SRC emacs-lisp
+(after! rustic
+  (setq rustic-lsp-server 'rls))
+#+END_SRC

@@ -70,3 +70,6 @@
   (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
   (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
   )
+
+(after! rustic
+  (setq rustic-lsp-server 'rls))
