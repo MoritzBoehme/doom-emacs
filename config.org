@@ -46,13 +46,13 @@ There are two ways to load a theme. Both assume the theme is installed and avail
 * Org
 Store org files under Documents directory.
 #+BEGIN_SRC emacs-lisp
-(setq org-directory "~/Documents/org")
+(setq org-directory "~/Notes/org")
 #+END_SRC
 
 ** Org Roam
 *** Roam capture templates
 #+BEGIN_SRC emacs-lisp
-(setq org-roam-directory "~/Documents/org-roam")
+(setq org-roam-directory "~/Notes/org-roam")
 (after! org-roam
   :custom
   (setq org-roam-capture-templates

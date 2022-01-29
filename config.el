@@ -5,9 +5,9 @@
 
 (setq doom-theme 'doom-dracula)
 
-(setq org-directory "~/Documents/org")
+(setq org-directory "~/Notes/org")
 
-(setq org-roam-directory "~/Documents/org-roam")
+(setq org-roam-directory "~/Notes/org-roam")
 (after! org-roam
   :custom
   (setq org-roam-capture-templates
