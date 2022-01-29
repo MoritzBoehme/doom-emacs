@@ -59,6 +59,12 @@
 (unless (file-exists-p ispell-personal-dictionary)
   (write-region "" nil ispell-personal-dictionary nil 0))
 
+(setq-default
+ delete-by-moving-to-trash t)          ; Delete files to trash
+
+(setq undo-limit 80000000             ; Raise undo-limit to 80Mb
+      evil-want-fine-undo t           ; By default while in insert all changes are one big blob. Be more granular
+      auto-save-default t)             ; Nobody likes to loose work, I certainly don't
 (map! :n "g s s" 'evil-avy-goto-char-timer)
 
 (map! :leader
