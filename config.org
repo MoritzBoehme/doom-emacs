@@ -1,9 +1,11 @@
 #+TITLE: Emacs Config
 #+STARTUP: showeverything
 
-* Table of contents :TOC_3:
+* Table of contents :TOC_3:noexport:
+- [[#lexical-binding][Lexical Binding]]
 - [[#user-information][User Information]]
 - [[#fonts][Fonts]]
+- [[#latex][Latex]]
 - [[#theme][Theme]]
 - [[#org][Org]]
   - [[#org-roam][Org Roam]]
@@ -11,9 +13,13 @@
     - [[#org-roam-ui][Org Roam UI]]
 - [[#line-numbering][Line Numbering]]
 - [[#ispell][Ispell]]
+- [[#better-defaults][Better Defaults]]
+- [[#very-large-files][Very Large Files]]
 - [[#key-mapping][Key Mapping]]
   - [[#avy][Avy]]
   - [[#zen-mode][Zen mode]]
+  - [[#org-tree-slide][Org Tree Slide]]
+
 * Lexical Binding
 #+BEGIN_SRC emacs-lisp
 ;;; init.el -*- lexical-binding: t; -*-
