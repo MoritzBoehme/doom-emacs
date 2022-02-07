@@ -60,6 +60,17 @@ Store org files under Documents directory.
 (setq org-directory "~/Notes/org")
 #+END_SRC
 
+Open PDF with zathura.
+#+BEGIN_SRC emacs-lisp
+(setq org-file-apps
+      '((remote . emacs)
+       (auto-mode . emacs)
+       (directory . emacs)
+       ("\\.mm\\'" . default)
+       ("\\.x?html?\\'" . default)
+       ("\\.pdf\\'" . "zathura %s")))
+#+END_SRC
+
 ** Org Roam
 *** Roam capture templates
 #+BEGIN_SRC emacs-lisp
