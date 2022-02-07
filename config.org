@@ -150,6 +150,12 @@ The personal dictionary file has to exist, otherwise hunspell will silently not 
       auto-save-default t)             ; Nobody likes to loose work, I certainly don't
 #+END_SRC
 
+* Very Large Files
+#+BEGIN_SRC emacs-lisp
+(use-package! vlf-setup
+  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
+#+END_SRC
+
 * Key Mapping
 ** Avy
 #+BEGIN_SRC emacs-lisp
