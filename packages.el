@@ -58,3 +58,5 @@
 (package! vlf :recipe (:host github :repo "m00natic/vlfi" :files ("*.el"))
   :pin "cc02f2533782d6b9b628cec7e2dcf25b2d05a27c" :disable nil)
 
+(package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table" :files ("*.el"))
+  :pin "7bd68b420d3402826fea16ee5099d04aa9879b78")

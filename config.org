@@ -71,6 +71,11 @@ Open PDF with zathura.
        ("\\.pdf\\'" . "zathura %s")))
 #+END_SRC
 
+Pretty Table
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
+#+END_SRC
+
 ** Org Roam
 *** Roam capture templates
 #+BEGIN_SRC emacs-lisp
