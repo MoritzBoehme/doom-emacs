@@ -60,3 +60,5 @@
 
 (package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table" :files ("*.el"))
   :pin "7bd68b420d3402826fea16ee5099d04aa9879b78")
+
+(package! anki-editor)

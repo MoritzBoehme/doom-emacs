@@ -8,9 +8,13 @@
 - [[#latex][Latex]]
 - [[#theme][Theme]]
 - [[#org][Org]]
-  - [[#org-roam][Org Roam]]
+  - [[#store-org-files-under-documents-directory][Store org files under Documents directory.]]
+  - [[#open-pdf-with-zathura][Open PDF with zathura.]]
+  - [[#pretty-table][Pretty Table]]
+- [[#org-roam][Org Roam]]
     - [[#roam-capture-templates][Roam capture templates]]
     - [[#org-roam-ui][Org Roam UI]]
+    - [[#anki][Anki]]
 - [[#line-numbering][Line Numbering]]
 - [[#ispell][Ispell]]
 - [[#better-defaults][Better Defaults]]
@@ -61,12 +65,12 @@ There are two ways to load a theme. Both assume the theme is installed and avail
 #+END_SRC
 
 * Org
-Store org files under Documents directory.
+** Store org files under Documents directory.
 #+BEGIN_SRC emacs-lisp
-(setq org-directory "~/Notes/org")
+(setq org-directory "~/Nextcloud/Notes/org")
 #+END_SRC
 
-Open PDF with zathura.
+** Open PDF with zathura.
 #+BEGIN_SRC emacs-lisp
 (setq org-file-apps
       '((remote . emacs)
@@ -77,38 +81,35 @@ Open PDF with zathura.
        ("\\.pdf\\'" . "zathura %s")))
 #+END_SRC
 
-Pretty Table
+** Pretty Table
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
 #+END_SRC
 
-** Org Roam
+* Org Roam
 *** Roam capture templates
 #+BEGIN_SRC emacs-lisp
-(setq org-roam-directory "~/Notes/org-roam")
-(after! org-roam
-  :custom
-  (setq org-roam-capture-templates
-        '(
-          ("d" "default" plain
-           "%?"
-           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-           :unnarrowed t)
-          ("s" "semester" plain (file "~/Documents/org-roam/templates/semester-template.org")
-           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-           :unnarrowed t)
-          ("m" "modul" plain (file "~/Documents/org-roam/templates/modul-template.org")
-           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-           :unnarrowed t)
-          ("D" "dozent" plain (file "~/Documents/org-roam/templates/dozent-template.org")
-           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-           :unnarrowed t)
-          ("k" "kapitel" plain (file "~/Documents/org-roam/templates/kapitel-template.org")
-           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-           :unnarrowed t)
-          )
-        )
-  )
+(setq org-roam-directory "~/Nextcloud/Notes/org-roam")
+(setq anki-directory (concat org-roam-directory "/anki"))
+(setq org-roam-capture-templates
+      '(
+        ("d" "default" plain "%?"
+         :if-new (file+head "main/${slug}.org" "#+title: ${title}\n")
+         :unnarrowed t)
+        ("a" "anki Basic" plain "#+filetags: %^g\n* ${title}\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Basic\n:ANKI_DECK: Mega\n:END:\n** Front\n%^{Short Description}\n** Back\n%?"
+         :if-new (file+head "%(print anki-directory)/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n")
+         :unnarrowed t)
+        ("A" "anki Cloze" plain "#+filetags: %^g\n* ${title}\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Cloze\n:ANKI_DECK: Mega\n:END:\n** Text\n%?"
+         :if-new (file+head "%(print anki-directory)/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n")
+         :unnarrowed t)
+      )
+)
+
+(setq org-roam-node-display-template "${title} ${doom-tags:45}")
+(setq org-roam-dailies-directory "~/Nextcloud/Notes/org-roam/daily")
+(setq org-agenda-files (list org-directory org-roam-dailies-directory))
 #+END_SRC
 
 *** Org Roam UI
@@ -124,6 +125,38 @@ Pretty Table
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 #+END_SRC
+
+*** Anki
+#+begin_src emacs-lisp
+(use-package! anki-editor
+    :after org-roam
+    :init
+    (setq anki-editor-create-decks t
+          anki-editor-org-tags-as-anki-tags t
+          anki-editor-use-math-jax t))
+
+(map! :leader
+      :desc "Push Anki Notes"
+      "n r A" (cmd! (anki-editor-push-notes '(4))))
+
+(add-hook 'org-mode-hook
+          (lambda () (if (member (file-name-as-directory (expand-file-name anki-directory)) (parent-dirs default-directory))
+                         (anki-editor-mode)
+                       ())))
+
+(add-hook 'anki-editor-mode-hook (lambda ()
+                            (add-hook 'before-save-hook (cmd! (anki-editor-push-notes '(16))))))
+
+(defun parent-dir (directory)
+  (file-name-directory (directory-file-name directory)))
+
+(defun parent-dirs (directory)
+  ;; if directory == "/" return ("/")
+  (if (equal directory "/")
+      (list directory)
+    ;; else return list containing directory and parent-dirs of the parent directory
+    (cons directory (parent-dirs (parent-dir directory)))))
+#+end_src
 
 * Line Numbering
 This determines the style of line numbers in effect. If set to `nil', line numbers are disabled. For relative line numbers, set this to `relative'.
