@@ -90,7 +90,7 @@ There are two ways to load a theme. Both assume the theme is installed and avail
 *** Roam capture templates
 #+BEGIN_SRC emacs-lisp
 (setq org-roam-directory "~/Nextcloud/Notes/org-roam")
-(setq anki-directory (concat org-roam-directory "/anki"))
+(setq anki-directory (concat (file-name-as-directory org-roam-directory) "anki"))
 (setq org-roam-capture-templates
       '(
         ("d" "default" plain "%?"
@@ -108,8 +108,8 @@ There are two ways to load a theme. Both assume the theme is installed and avail
 )
 
 (setq org-roam-node-display-template "${title} ${doom-tags:45}")
-(setq org-roam-dailies-directory "~/Nextcloud/Notes/org-roam/daily")
-(setq org-agenda-files (list org-directory org-roam-dailies-directory))
+(setq org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "daily"))
+(cons 'org-roam-dailies-directory 'org-agenda-files)
 #+END_SRC
 
 *** Org Roam UI
@@ -135,28 +135,36 @@ There are two ways to load a theme. Both assume the theme is installed and avail
           anki-editor-org-tags-as-anki-tags t
           anki-editor-use-math-jax t))
 
-(map! :leader
-      :desc "Push Anki Notes"
-      "n r A" (cmd! (anki-editor-push-notes '(4))))
-
-(add-hook 'org-mode-hook
-          (lambda () (if (member (file-name-as-directory (expand-file-name anki-directory)) (parent-dirs default-directory))
-                         (anki-editor-mode)
-                       ())))
-
-(add-hook 'anki-editor-mode-hook (lambda ()
-                            (add-hook 'before-save-hook (cmd! (anki-editor-push-notes '(16))))))
-
-(defun parent-dir (directory)
+(defun parent-directory (directory)
   (file-name-directory (directory-file-name directory)))
 
-(defun parent-dirs (directory)
-  ;; if directory == "/" return ("/")
-  (if (equal directory "/")
+(defun parent-directories (directory)
+  (setq directory (file-name-as-directory (expand-file-name directory)))
+   ;; if directory == "/" return ("/")
+   (if (equal directory "/")
       (list directory)
     ;; else return list containing directory and parent-dirs of the parent directory
-    (cons directory (parent-dirs (parent-dir directory)))))
+    (cons directory (parent-directories (parent-directory directory)))))
+
+(defun has-sub-path (sub-path path)
+  (setq sub-path (file-name-as-directory (expand-file-name sub-path)))
+  (setq path (file-name-as-directory (expand-file-name path)))
+  (member sub-path (parent-directories path)))
+
+(add-hook 'org-mode-hook
+          (lambda () (when (has-sub-path anki-directory default-directory)
+                         (anki-editor-mode))))
+
+(add-hook 'anki-editor-mode-hook
+          (lambda () (add-hook 'before-save-hook
+                               (cmd! (anki-editor-push-notes '(16))))))
+
 #+end_src
+
+#+begin_example emacs-lisp
+(parent-dirs anki-directory)
+#+end_example
+
 
 * Line Numbering
 This determines the style of line numbers in effect. If set to `nil', line numbers are disabled. For relative line numbers, set this to `relative'.
