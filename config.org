@@ -208,6 +208,30 @@ The personal dictionary file has to exist, otherwise hunspell will silently not 
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 #+END_SRC
 
+* Email
+Mu4e configuration.
+#+begin_src emacs-lisp
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail))
+(set-email-account! "default"
+  '((mu4e-sent-folder       . "/Sent")
+    (mu4e-drafts-folder     . "/Drafts")
+    (mu4e-trash-folder      . "/Trash")
+    (mu4e-refile-folder     . "/All Mail")
+    (smtpmail-smtp-user     . "mail@moritzboeh.me"))
+  t)
+(setq! mu4e-maildir-shortcuts
+       '(
+         (:maildir "/Inbox" :key ?i)
+         (:maildir "/Archive" :key ?a)
+         (:maildir "/Drafts" :key ?d)
+         ))
+#+end_src
+
 * Key Mapping
 ** Avy
 #+BEGIN_SRC emacs-lisp
