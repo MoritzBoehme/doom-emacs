@@ -12,13 +12,16 @@
   - [[#open-pdf-with-zathura][Open PDF with zathura.]]
   - [[#pretty-table][Pretty Table]]
 - [[#org-roam][Org Roam]]
-    - [[#roam-capture-templates][Roam capture templates]]
-    - [[#org-roam-ui][Org Roam UI]]
-    - [[#anki][Anki]]
+  - [[#set-variables][Set variables]]
+  - [[#roam-capture-templates][Roam capture templates]]
+    - [[#dailies-capture-templates][Dailies Capture Templates]]
+  - [[#org-roam-ui][Org Roam UI]]
+  - [[#anki][Anki]]
 - [[#line-numbering][Line Numbering]]
 - [[#ispell][Ispell]]
 - [[#better-defaults][Better Defaults]]
 - [[#very-large-files][Very Large Files]]
+- [[#email][Email]]
 - [[#key-mapping][Key Mapping]]
   - [[#avy][Avy]]
   - [[#zen-mode][Zen mode]]
@@ -87,10 +90,17 @@ There are two ways to load a theme. Both assume the theme is installed and avail
 #+END_SRC
 
 * Org Roam
-*** Roam capture templates
+** Set variables
+#+begin_src emacs-lisp
+(setq org-roam-directory "~/Nextcloud/Notes/org-roam"
+      anki-directory (concat (file-name-as-directory org-roam-directory) "anki")
+      org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "daily")
+      org-roam-node-display-template "${title} ${doom-tags:45}")
+(cons 'org-roam-dailies-directory 'org-agenda-files)
+#+end_src
+
+** Roam capture templates
 #+BEGIN_SRC emacs-lisp
-(setq org-roam-directory "~/Nextcloud/Notes/org-roam")
-(setq anki-directory (concat (file-name-as-directory org-roam-directory) "anki"))
 (setq org-roam-capture-templates
       '(
         ("d" "default" plain "%?"
@@ -106,13 +116,39 @@ There are two ways to load a theme. Both assume the theme is installed and avail
          :unnarrowed t)
       )
 )
-
-(setq org-roam-node-display-template "${title} ${doom-tags:45}")
-(setq org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "daily"))
-(cons 'org-roam-dailies-directory 'org-agenda-files)
 #+END_SRC
 
-*** Org Roam UI
+*** Dailies Capture Templates
+#+begin_src emacs-lisp
+(setq org-roam-dailies-capture-templates
+   (let ((head
+          (concat
+           "#+title: %<%A, %d %B %Y>\n#+roam_tags: Dailies\n* Inbox\n* Log\n"
+           "* [/] Do Today\n- [ ] Watch news\n- [ ] Read E-Mails\n- [ ] Flashcards\n* [/] Possibly Do Today\n")))
+     `(("d" "default" entry
+        "* %?"
+        :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org", head ("Inbox"))
+        :unnarrowed t)
+       ("D" "default + reference" entry
+        "* %? %a"
+        :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org", head ("Inbox"))
+        :unnarrowed t)
+       ("j" "journal" entry
+        "* %U: %?"
+        :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org", head ("Log")))
+       ("J" "journal + refernce" entry
+        "* %U: %? %a"
+        :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org", head ("Log")))
+       ("t" "Do Today" item
+        "[ ] %a %?"
+        :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org", head ("Do Today")))
+       ("p" "Possibly Do Today" item
+        "[ ] %a %?"
+        :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org", head ("Possibly Do Today")))
+       )))
+#+end_src
+
+** Org Roam UI
 #+BEGIN_SRC emacs-lisp
 (use-package! websocket
     :after org-roam)
@@ -126,7 +162,7 @@ There are two ways to load a theme. Both assume the theme is installed and avail
           org-roam-ui-open-on-start t))
 #+END_SRC
 
-*** Anki
+** Anki
 #+begin_src emacs-lisp
 (use-package! anki-editor
     :after org-roam
@@ -160,11 +196,6 @@ There are two ways to load a theme. Both assume the theme is installed and avail
                                (cmd! (anki-editor-push-notes '(16))))))
 
 #+end_src
-
-#+begin_example emacs-lisp
-(parent-dirs anki-directory)
-#+end_example
-
 
 * Line Numbering
 This determines the style of line numbers in effect. If set to `nil', line numbers are disabled. For relative line numbers, set this to `relative'.
