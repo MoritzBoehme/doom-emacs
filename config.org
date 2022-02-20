@@ -20,6 +20,7 @@
 - [[#line-numbering][Line Numbering]]
 - [[#ispell][Ispell]]
 - [[#better-defaults][Better Defaults]]
+- [[#nix][Nix]]
 - [[#very-large-files][Very Large Files]]
 - [[#email][Email]]
 - [[#key-mapping][Key Mapping]]
