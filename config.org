@@ -96,7 +96,6 @@ There are two ways to load a theme. Both assume the theme is installed and avail
       anki-directory (concat (file-name-as-directory org-roam-directory) "anki")
       org-roam-dailies-directory (concat (file-name-as-directory org-roam-directory) "daily")
       org-roam-node-display-template "${title} ${doom-tags:45}")
-(cons 'org-roam-dailies-directory 'org-agenda-files)
 #+end_src
 
 ** Roam capture templates
