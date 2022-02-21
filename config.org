@@ -140,10 +140,10 @@ There are two ways to load a theme. Both assume the theme is installed and avail
         "* %U: %? %a"
         :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org", head ("Log")))
        ("t" "Do Today" item
-        "[ ] %a %?"
+        "[ ] %?"
         :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org", head ("Do Today")))
        ("p" "Possibly Do Today" item
-        "[ ] %a %?"
+        "[ ] %?"
         :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org", head ("Possibly Do Today")))
        )))
 #+end_src
