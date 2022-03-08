@@ -230,8 +230,13 @@ The personal dictionary file has to exist, otherwise hunspell will silently not 
 
 (setq undo-limit 80000000             ; Raise undo-limit to 80Mb
       evil-want-fine-undo t           ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t)             ; Nobody likes to loose work, I certainly don't
+      auto-save-default t)            ; Nobody likes to loose work, I certainly don't
 #+END_SRC
+
+* Nix
+#+begin_src emacs-lisp
+(setq-hook! 'nix-mode-hook company-idle-delay 0.2)
+#+end_src
 
 * Very Large Files
 #+BEGIN_SRC emacs-lisp
