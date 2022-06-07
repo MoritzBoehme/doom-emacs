@@ -5,7 +5,6 @@
 - [[#lexical-binding][Lexical Binding]]
 - [[#user-information][User Information]]
 - [[#fonts][Fonts]]
-- [[#latex][Latex]]
 - [[#theme][Theme]]
 - [[#org][Org]]
   - [[#store-org-files-under-documents-directory][Store org files under Documents directory.]]
@@ -53,13 +52,6 @@ They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font 
 
 #+BEGIN_SRC emacs-lisp
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14) )
-#+END_SRC
-
-* Latex
-Compile on save.
-#+BEGIN_SRC emacs-lisp
-(add-hook 'LaTeX-mode-hook (lambda ()
-                             (add-hook 'after-save-hook (lambda () (TeX-command "LatexMk" #'TeX-master-file)))))
 #+END_SRC
 
 * Theme
