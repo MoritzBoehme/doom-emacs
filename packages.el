@@ -62,3 +62,5 @@
   :pin "7bd68b420d3402826fea16ee5099d04aa9879b78")
 
 (package! anki-editor)
+
+(package! org-auto-tangle)
