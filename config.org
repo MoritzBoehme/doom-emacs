@@ -5,12 +5,12 @@
 - [[#lexical-binding][Lexical Binding]]
 - [[#user-information][User Information]]
 - [[#fonts][Fonts]]
-- [[#latex][Latex]]
 - [[#theme][Theme]]
 - [[#org][Org]]
   - [[#store-org-files-under-documents-directory][Store org files under Documents directory.]]
   - [[#open-pdf-with-zathura][Open PDF with zathura.]]
   - [[#pretty-table][Pretty Table]]
+  - [[#auto-tangle][Auto Tangle]]
 - [[#org-roam][Org Roam]]
   - [[#set-variables][Set variables]]
   - [[#roam-capture-templates][Roam capture templates]]
@@ -54,13 +54,6 @@ They all accept either a font-spec, font string ("Input Mono-12"), or xlfd font 
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14) )
 #+END_SRC
 
-* Latex
-Compile on save.
-#+BEGIN_SRC emacs-lisp
-(add-hook 'LaTeX-mode-hook (lambda ()
-                             (add-hook 'after-save-hook (lambda () (TeX-command "LatexMk" #'TeX-master-file)))))
-#+END_SRC
-
 * Theme
 There are two ways to load a theme. Both assume the theme is installed and available. You can either set `doom-theme' or manually load a theme with the `load-theme' function. This is the default:
 #+BEGIN_SRC emacs-lisp
@@ -88,6 +81,13 @@ There are two ways to load a theme. Both assume the theme is installed and avail
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
 #+END_SRC
+** Auto Tangle
+#+begin_src emacs-lisp
+(use-package org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config (setq org-auto-tangle-default t))
+#+end_src
 
 * Org Roam
 ** Set variables

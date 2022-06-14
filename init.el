@@ -21,16 +21,16 @@
 
        :completion
        (company +childframe)            ; the ultimate code completion backend
-       (helm +childframe)               ; the *other* search engine for love and life
+       ;;(helm +childframe)             ; the *other* search engine for love and life
        ;;ido                            ; the other *other* search engine...
-       (ivy +fuzzy +prescient +childframe +icons)  ; a search engine for love and life
+       (ivy +fuzzy +prescient +icons)   ; a search engine for love and life
 
        :ui
        ;;deft                           ; notational velocity for Emacs
        doom                             ; what makes DOOM look the way it does
        doom-dashboard                   ; a nifty splash screen for Emacs
        doom-quit                        ; DOOM quit-message prompts when you quit Emacs
-       (emoji +unicode +github)         ; 🙂
+       (emoji +github)                  ; 🙂
        ;;fill-column                    ; a `fill-column' indicator
        hl-todo                          ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
@@ -88,8 +88,8 @@
        ;;debugger                       ; FIXME stepping through code, to help you add bugs
        direnv
        ;;docker
-       ;;editorconfig                   ; let someone else argue about tabs vs spaces
        ;;ein                            ; tame Jupyter notebooks with emacs
+       editorconfig                     ; let someone else argue about tabs vs spaces
        (eval +overlay)                  ; run code, run (also, repls)
        ;;gist                           ; interacting with github gists
        (lookup +dictionary)             ; navigate your code and its documentation
@@ -141,13 +141,13 @@
        ;;kotlin                         ; a better, slicker Java(Script)
        (latex +cdlatex +latexmk +lsp)   ; writing papers in Emacs has never been so fun
        ;;lean                           ; for folks with too much to prove
-       ;;ledger                         ; be audit you can be
+       ledger                           ; be audit you can be
        ;;lua                            ; one-based indices? one-based indices
        markdown                         ; writing docs for people to ignore
        ;;nim                            ; python + lisp at the speed of c
        nix                              ; I hereby declare "nix geht mehr!"
        ;;ocaml                          ; an objective camel
-       (org +roam2 +pretty)             ; organize your plain life in plain text
+       (org +roam2 +pretty +pandoc)     ; organize your plain life in plain text
        ;;php                            ; perl's insecure younger brother
        ;;plantuml                       ; diagrams for confusing people more
        ;;purescript                     ; javascript, but functional
