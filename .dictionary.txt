@@ -1,2 +1,5 @@
 Config
 direnv
+Mullvad
+WG
+Moritz
