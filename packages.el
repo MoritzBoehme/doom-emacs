@@ -62,3 +62,4 @@
 (package! anki-editor)
 
 (package! org-auto-tangle)
+(package! svg-tag-mode)
